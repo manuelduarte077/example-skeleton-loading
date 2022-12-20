@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
+import 'package:skeleton_loading_flutter/data/news_fake.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({super.key, required this.image});
@@ -15,7 +16,13 @@ class NewsCard extends StatelessWidget {
             SizedBox(
               height: 120,
               width: 120,
-              child: Image.asset('assets/images/Image_1.png'),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -23,32 +30,45 @@ class NewsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Euronews',
-                    style: Theme.of(context).textTheme.caption,
+                    channels[images.indexOf(image)],
+                    style: const TextStyle(
+                      color: CupertinoColors.systemGrey,
+                      fontSize: 12,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      'On politics with Lisa Loureniani: Warren’s growing crowds',
-                      style: Theme.of(context).textTheme.headline6,
+                      news[images.indexOf(image)],
+                      style: const TextStyle(
+                        color: CupertinoColors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   Row(
-                    children: const [
+                    children: [
                       Text(
-                        'Politics',
-                        style: TextStyle(color: CupertinoColors.activeBlue),
+                        categories[images.indexOf(image)],
+                        style:
+                            const TextStyle(color: CupertinoColors.activeBlue),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: CircleAvatar(
-                          radius: 3,
-                          backgroundColor: CupertinoColors.systemGrey,
+                        child: Text(
+                          '•',
+                          style: TextStyle(
+                            color: CupertinoColors.systemGrey,
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                       Text(
-                        '3m ago',
-                        style: TextStyle(color: CupertinoColors.systemGrey),
+                        dates[images.indexOf(image)],
+                        style: const TextStyle(
+                          color: CupertinoColors.systemGrey,
+                        ),
                       )
                     ],
                   )
@@ -57,7 +77,6 @@ class NewsCard extends StatelessWidget {
             )
           ],
         ),
-        const Divider()
       ],
     );
   }
